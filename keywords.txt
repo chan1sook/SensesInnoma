@@ -1,0 +1,29 @@
+InnomaClient	KEYWORD1
+STATE_UNKNOWN LITERAL1
+
+getUserid	KEYWORD2
+setUserid	KEYWORD2
+getDevicekey	KEYWORD2
+setDevicekey	KEYWORD2
+
+begin	KEYWORD2
+wifiStatus	KEYWORD2
+ready	KEYWORD2
+waitUntilReady	KEYWORD2
+
+getData	KEYWORD2
+getControl	KEYWORD2
+setData	KEYWORD2
+setControl	KEYWORD2
+
+connectMqtt	KEYWORD2
+loop	KEYWORD2
+mqttStatus	KEYWORD2
+
+subscribeData	KEYWORD2
+subscribeControl	KEYWORD2
+unsubscribeData	KEYWORD2
+unsubscribeControl	KEYWORD2
+
+setDataCallback	KEYWORD2
+setControlCallback	KEYWORD2
