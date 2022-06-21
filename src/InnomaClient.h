@@ -1,12 +1,9 @@
 /* 
   InnomaClient.h - A library for send and receive data from "Innoma Platform"
   Created by Natthawat Raocharoensinp, June 18, 2022.
-  Released into the public domain.
 */
 #ifndef InnomaClient_h
 #define InnomaClient_h
-
-// #define LOCALHOST_TEST
 
 #define MQTT_SETDATA
 

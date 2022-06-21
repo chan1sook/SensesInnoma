@@ -1,7 +1,6 @@
 /* 
   Example - Publish Data to Innoma Platform
   Created by Natthawat Raocharoensinp, June 20, 2022.
-  Released into the public domain.
 */
 #include <SensesInnoma.h>
 

@@ -1,7 +1,6 @@
 /* 
   Example - Subscribe Data from Innoma Platform
   Created by Natthawat Raocharoensinp, June 20, 2022.
-  Released into the public domain.
 */
 #include <SensesInnoma.h>
 
