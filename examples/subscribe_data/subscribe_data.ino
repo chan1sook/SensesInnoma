@@ -6,7 +6,7 @@
 #include <SensesInnoma.h>
 
 const char userid[] PROGMEM = "your-userid";
-const char key[] PROGMEM = "your-devicekey";
+const char key[] PROGMEM = "your-deviceid";
 const char wifissid[] PROGMEM = "your-wifi-ssid";
 const char wifipw[] PROGMEM = "your-wifi-password";
 

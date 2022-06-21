@@ -3,17 +3,16 @@
   Created by Natthawat Raocharoensinp, June 20, 2022.
   Released into the public domain.
 */
-
 #include <SensesInnoma.h>
 
 #ifndef LED_BUILTIN
 #define LED_BUILTIN 2
 #endif
 
-const char userid[] PROGMEM = "1";
-const char key[] PROGMEM = "t2dv7e0pwl7k";
-const char wifissid[] PROGMEM = "ICE_2.4G";
-const char wifipw[] PROGMEM = "29592959";
+const char userid[] PROGMEM = "your-userid";
+const char key[] PROGMEM = "your-deviceid";
+const char wifissid[] PROGMEM = "your-wifi-ssid";
+const char wifipw[] PROGMEM = "your-wifi-password";
 
 InnomaClient innomaProtocol(userid, key);
 
@@ -46,10 +45,6 @@ void loop() {
     innomaProtocol.subscribeControl(1);
   }
   innomaProtocol.loop();
-  
-  Serial.print(F("Free Memory: "));
-  Serial.println(ESP.getFreeHeap());
-  delay(2000);
 }
 
 void controlCallback(uint8_t slot, uint8_t state) {

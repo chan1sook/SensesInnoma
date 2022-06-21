@@ -1,11 +1,7 @@
 #include "Arduino.h"
 #include "InnomaClient.h"
 
-#ifdef LOCALHOST_TEST
-const char* InnomaClient::_API_HOST PROGMEM = "192.168.1.11";
-#else
-const char* InnomaClient::_API_HOST PROGMEM = "innoma.sensesiot.com";
-#endif
+const char* PROGMEM InnomaClient::_API_HOST = "innoma.sensesiot.com";
 
 const char* PROGMEM InnomaClient::_GETDATA_URL_FSTR  = "/getdata/%s/%s/%d";
 const char* PROGMEM InnomaClient::_GETCONTROL_URL_FSTR = "/getcontrol/%s/%s/%d";
@@ -48,7 +44,7 @@ void InnomaClient::setDevicekey(const char* devicekey) {
 bool InnomaClient::begin(const char* wifissid, const char* wifipw) {
   _mqttClient.setClient(_wifiClient);
   _mqttClient.setServer(_API_HOST, _MQTT_PORT);
-  _mqttClient.setCallback([=](char* topic, byte* payload, unsigned int length) { 
+  _mqttClient.setCallback([=](char* topic, uint8_t* payload, unsigned int length) { 
     mqttCallback(topic, payload, length);
   });
 
@@ -117,7 +113,7 @@ uint8_t InnomaClient::getControl(uint8_t slot) {
 }
 
 bool InnomaClient::setData(uint8_t slot, double value) {
-  #ifdef USE_MQTT_SET
+  #ifdef MQTT_SETDATA
     char topicBuffer[MQTTTOPIC_BUFFER_SIZE];
     char floatStrBuffer[FLOATSTR_BUFFER_SIZE];
     
@@ -138,7 +134,7 @@ bool InnomaClient::setData(uint8_t slot, double value) {
 }
 
 bool InnomaClient::setControl(uint8_t slot, uint8_t state) {
-  #ifdef USE_MQTT_SET
+  #ifdef MQTT_SETDATA
     char topicBuffer[MQTTTOPIC_BUFFER_SIZE];
     const char* stateStr = (state == LOW) ? _OFFSTATE_STR : _ONSTATE_STR;
     
@@ -192,10 +188,13 @@ bool InnomaClient::subscribeControl(uint8_t slot) {
 }
 
 bool InnomaClient::unsubscribeData(uint8_t slot) {
+  #ifndef ARDUINO_ARCH_ESP8266
   char topicBuffer[MQTTTOPIC_BUFFER_SIZE];
   sprintf(topicBuffer, _DATA_TOPIC_FSTR, _userid, _devicekey, slot);
 
   return _mqttClient.unsubscribe(topicBuffer);
+  #endif
+  return false;
 }
 
 bool InnomaClient::unsubscribeControl(uint8_t slot) {
@@ -213,7 +212,6 @@ void InnomaClient::setControlCallback(innomaControlCallback callback) {
   _mqttControlCallback = callback;
 }
 
-#ifdef USE_ARDUINO_STRING
 InnomaClient::InnomaClient(String userid, String devicekey) {
   setUserid(userid);
   setDevicekey(devicekey);
@@ -228,9 +226,8 @@ void InnomaClient::setDevicekey(String devicekey) {
   strncpy(_devicekey, devicekey.c_str(), DEVKEYSTR_BUFFER_SIZE - 1);
   _devicekey[DEVKEYSTR_BUFFER_SIZE - 1] = '\0';
 }
-#endif
 
-void InnomaClient::mqttCallback(char* topic, byte* payload, unsigned int length) {
+void InnomaClient::mqttCallback(char* topic, uint8_t* payload, unsigned int length) {
   uint8_t slot;
   char payloadStr[length + 1];
   strncpy(payloadStr, (char*) payload, length);

@@ -14,6 +14,10 @@
     "utility": "cpp",
     "system_error": "cpp",
     "type_traits": "cpp",
-    "limits": "cpp"
+    "limits": "cpp",
+    "list": "cpp",
+    "string_view": "cpp",
+    "ranges": "cpp",
+    "cstddef": "cpp"
   }
 }

@@ -5,10 +5,10 @@
 */
 #include <SensesInnoma.h>
 
-const char userid[] PROGMEM = "1";
-const char key[] PROGMEM = "t2dv7e0pwl7k";
-const char wifissid[] PROGMEM = "ICE_2.4G";
-const char wifipw[] PROGMEM = "29592959";
+const char userid[] PROGMEM = "your-userid";
+const char key[] PROGMEM = "your-deviceid";
+const char wifissid[] PROGMEM = "your-wifi-ssid";
+const char wifipw[] PROGMEM = "your-wifi-password";
 
 InnomaClient innomaProtocol(userid, key);
 
@@ -34,7 +34,6 @@ void loop() {
   innomaProtocol.setData(1, random(0, 100));
   innomaProtocol.setControl(1, (random(0, 1) == 1) ? HIGH : LOW);
 
-  Serial.print(F("Free Memory: "));
-  Serial.println(ESP.getFreeHeap());
+  Serial.println(F("Send Data"));
   delay(2000);
 }

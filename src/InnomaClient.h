@@ -6,10 +6,9 @@
 #ifndef InnomaClient_h
 #define InnomaClient_h
 
-#define LOCALHOST_TEST
+// #define LOCALHOST_TEST
 
-#define USE_ARDUINO_STRING
-#define USE_MQTT_SET
+#define MQTT_SETDATA
 
 #define USERIDSTR_BUFFER_SIZE (11)
 #define DEVKEYSTR_BUFFER_SIZE (21)
@@ -25,8 +24,14 @@ typedef void (*innomaDataCallback)(uint8_t, double);
 typedef void (*innomaControlCallback)(uint8_t, uint8_t);
 
 #include "Arduino.h"
+
+#ifdef ESP32
 #include "WiFi.h"
 #include "HTTPClient.h"
+#else
+#error "Unsupported Board Architecture"
+#endif
+
 #include "PubSubClient.h"
 
 class InnomaClient {
@@ -52,7 +57,6 @@ class InnomaClient {
 
     char _userid[USERIDSTR_BUFFER_SIZE];
     char _devicekey[DEVKEYSTR_BUFFER_SIZE];
-
     WiFiClient _wifiClient;
     HTTPClient _httpClient;
     PubSubClient _mqttClient;
@@ -89,13 +93,11 @@ class InnomaClient {
     void setDataCallback(innomaDataCallback callback);
     void setControlCallback(innomaControlCallback callback);
     
-    #ifdef USE_ARDUINO_STRING
     InnomaClient(String userid, String devicekey);
     void setUserid(String userid);
     void setDevicekey(String userid);
-    #endif
   protected:
-    void mqttCallback(char* topic, byte* payload, unsigned int length);
+    void mqttCallback(char* topic, uint8_t* payload, unsigned int length);
     bool isTopicStartWith(const char* topic, const char* str);
     uint8_t slotFromTopic(const char* topic);
 };
