@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "InnomaClient.h"
 
-const char* PROGMEM InnomaClient::_API_HOST = "innoma.sensesiot.com";
+const char* PROGMEM InnomaClient::_API_HOST = "innoma.sensesiot.net";
 
 const char* PROGMEM InnomaClient::_GETDATA_URL_FSTR  = "/getdata/%s/%s/%d";
 const char* PROGMEM InnomaClient::_GETCONTROL_URL_FSTR = "/getcontrol/%s/%s/%d";
